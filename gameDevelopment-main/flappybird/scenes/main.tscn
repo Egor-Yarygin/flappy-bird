@@ -1,0 +1,100 @@
+[gd_scene load_steps=19 format=3 uid="uid://d2k2gfklfus0w"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_br1c4"]
+[ext_resource type="Texture2D" uid="uid://cjwffmqfqkpny" path="res://assets/Background/Background6-Sheet.png" id="2_2nil1"]
+[ext_resource type="PackedScene" uid="uid://dn3m2ywjk7v4r" path="res://scenes/pipe.tscn" id="2_i4uq5"]
+[ext_resource type="PackedScene" uid="uid://0588xfw18eai" path="res://scenes/bird.tscn" id="3_o7qkq"]
+[ext_resource type="PackedScene" uid="uid://dcgl3updd12j5" path="res://scenes/ground.tscn" id="4_rwx4y"]
+[ext_resource type="PackedScene" uid="uid://bp426isfpsgr0" path="res://scenes/game_over.tscn" id="6_okst7"]
+[ext_resource type="AudioStream" uid="uid://b61iqreew7imb" path="res://assets/Sounds/sfx_wing.wav" id="7_st8iu"]
+[ext_resource type="AudioStream" uid="uid://7gtj0a2o2u6t" path="res://assets/Sounds/sfx_hit.wav" id="8_xscid"]
+[ext_resource type="AudioStream" uid="uid://c6vth7iv3jmj1" path="res://assets/Sounds/sfx_groud_hit.wav" id="9_lcic8"]
+[ext_resource type="AudioStream" uid="uid://b1cc0n82qpqsj" path="res://assets/Sounds/sfx_loose.wav" id="10_qp5i0"]
+[ext_resource type="AudioStream" uid="uid://cccapkpbw8u3b" path="res://assets/Sounds/sfx_point.wav" id="11_7ldr3"]
+[ext_resource type="Texture2D" uid="uid://6juehu8mxmat" path="res://assets/Buttons/pause/pause2.png" id="12_omj8q"]
+[ext_resource type="Texture2D" uid="uid://cu22w4vpfa1d" path="res://assets/Buttons/pause/pause3.png" id="13_wh3jd"]
+[ext_resource type="Texture2D" uid="uid://bb0y5c4omhb3i" path="res://assets/Buttons/pause/pause1.png" id="14_thj8h"]
+[ext_resource type="PackedScene" uid="uid://cbbuonuckacxq" path="res://scenes/beggining.tscn" id="15_4shgo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wvr1m"]
+texture = ExtResource("12_omj8q")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r1j3p"]
+texture = ExtResource("13_wh3jd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oncrj"]
+texture = ExtResource("14_thj8h")
+
+[node name="main" type="Node"]
+script = ExtResource("1_br1c4")
+pipe_scene = ExtResource("2_i4uq5")
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(0.844, 0.844)
+texture = ExtResource("2_2nil1")
+offset = Vector2(512, 408)
+
+[node name="Bird" parent="." instance=ExtResource("3_o7qkq")]
+
+[node name="Ground" parent="." instance=ExtResource("4_rwx4y")]
+
+[node name="PipeTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="ScoreLabel" type="Label" parent="."]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -85.0
+offset_right = 86.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.580392, 0.992157, 1, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 31
+text = "SCORE: 0"
+horizontal_alignment = 1
+
+[node name="GameOver" parent="." instance=ExtResource("6_okst7")]
+visible = false
+
+[node name="SfxWing" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(50, 50)
+stream = ExtResource("7_st8iu")
+
+[node name="SfxHit" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(50, 100)
+stream = ExtResource("8_xscid")
+volume_db = 10.0
+
+[node name="SfxGroudHit" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(50, 150)
+stream = ExtResource("9_lcic8")
+volume_db = 5.0
+
+[node name="SfxLoose" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(50, 200)
+stream = ExtResource("10_qp5i0")
+
+[node name="SfxPoint" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(50, 250)
+stream = ExtResource("11_7ldr3")
+volume_db = 5.0
+
+[node name="Pause" type="Button" parent="."]
+offset_right = 75.0
+offset_bottom = 75.0
+theme_override_styles/hover = SubResource("StyleBoxTexture_wvr1m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_r1j3p")
+theme_override_styles/normal = SubResource("StyleBoxTexture_oncrj")
+
+[node name="Beggining" parent="." instance=ExtResource("15_4shgo")]
+
+[connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
+[connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]
+[connection signal="restart" from="GameOver" to="." method="_on_game_over_restart"]
+[connection signal="start" from="Beggining" to="." method="_on_beggining_start"]

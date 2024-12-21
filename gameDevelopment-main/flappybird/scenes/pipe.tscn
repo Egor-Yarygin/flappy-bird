@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://dn3m2ywjk7v4r"]
+
+[ext_resource type="Texture2D" uid="uid://cegvvr21mttmr" path="res://assets/Tiles/PipeStyle3.png" id="1_l222x"]
+[ext_resource type="Script" path="res://scenes/pipe.gd" id="1_xnkj4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ethv"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aorax"]
+size = Vector2(52, 640)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qo8v6"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rftqu"]
+size = Vector2(52, 640)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6y6v8"]
+texture = ExtResource("1_l222x")
+2:3/0 = 0
+3:3/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_pxji0"]
+sources/0 = SubResource("TileSetAtlasSource_6y6v8")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4samo"]
+size = Vector2(20, 128)
+
+[node name="Pipe" type="Area2D" groups=["pipes"]]
+script = ExtResource("1_xnkj4")
+
+[node name="CollisionShape2DLower" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, 80)
+shape = SubResource("RectangleShape2D_3ethv")
+
+[node name="CollisionShape2DLower2" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, 416)
+shape = SubResource("RectangleShape2D_aorax")
+
+[node name="CollisionShape2DUpper" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, -80)
+shape = SubResource("RectangleShape2D_qo8v6")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, -416)
+shape = SubResource("RectangleShape2D_rftqu")
+
+[node name="TileMap" type="TileMap" parent="."]
+texture_filter = 1
+position = Vector2(0, 64)
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_pxji0")
+format = 2
+layer_0/tile_data = PackedInt32Array(65535, 131072, 3, 0, 196608, 3, 131071, 131072, 4, 65536, 196608, 4, 196607, 131072, 4, 262143, 131072, 4, 327679, 131072, 4, 131072, 196608, 4, 196608, 196608, 4, 262144, 196608, 4, 393215, 131072, 4, 458751, 131072, 4, 524287, 131072, 4, 589823, 131072, 4, 655359, 131072, 4, 720895, 131072, 4, 786431, 131072, 4, 851967, 131072, 4, 917503, 131072, 4, 983039, 131072, 4, 1048575, 131072, 4, 1114111, 131072, 4, 1179647, 131072, 4, 1245183, 131072, 4, 1310719, 131072, 4, 1376255, 131072, 4, 327680, 196608, 4, 393216, 196608, 4, 458752, 196608, 4, 524288, 196608, 4, 589824, 196608, 4, 655360, 196608, 4, 720896, 196608, 4, 786432, 196608, 4, 851968, 196608, 4, 917504, 196608, 4, 983040, 196608, 4, 1048576, 196608, 4, 1114112, 196608, 4, 1179648, 196608, 4, 1245184, 196608, 4, 1310720, 196608, 4, -262145, 131072, 5, -327680, 196608, 5, -327681, 131072, 4, -393217, 131072, 4, -458753, 131072, 4, -524289, 131072, 4, -589825, 131072, 4, -655361, 131072, 4, -720897, 131072, 4, -786433, 131072, 4, -851969, 131072, 4, -917505, 131072, 4, -983041, 131072, 4, -1048577, 131072, 4, -1114113, 131072, 4, -1179649, 131072, 4, -1245185, 131072, 4, -1310721, 131072, 4, -1376257, 131072, 4, -1441793, 131072, 4, -1507329, 131072, 4, -1572865, 131072, 4, -1638400, 196608, 4, -917504, 196608, 4, -1572864, 196608, 4, -1507328, 196608, 4, -1441792, 196608, 4, -1376256, 196608, 4, -1310720, 196608, 4, -1245184, 196608, 4, -1179648, 196608, 4, -1114112, 196608, 4, -1048576, 196608, 4, -983040, 196608, 4, -851968, 196608, 4, -786432, 196608, 4, -720896, 196608, 4, -655360, 196608, 4, -589824, 196608, 4, -524288, 196608, 4, -458752, 196608, 4, -393216, 196608, 4)
+
+[node name="ScoreArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
+position = Vector2(42, 0)
+shape = SubResource("RectangleShape2D_4samo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="ScoreArea" to="." method="_on_score_area_body_entered"]

@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://bp426isfpsgr0"]
+
+[ext_resource type="Script" path="res://scenes/game_over.gd" id="1_kjfds"]
+[ext_resource type="Texture2D" uid="uid://dkxu6f36cd6x6" path="res://assets/Buttons/restart/restartHover.png" id="2_5igwl"]
+[ext_resource type="Texture2D" uid="uid://do0b007vvpei1" path="res://assets/Buttons/restart/restartPressed.png" id="3_cwx77"]
+[ext_resource type="Texture2D" uid="uid://cp2op7xlsftb" path="res://assets/Buttons/restart/restartNormal.png" id="4_cxgba"]
+[ext_resource type="Shader" path="res://scenes/game_over.gdshader" id="5_w6d7u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_213vl"]
+shader = ExtResource("5_w6d7u")
+shader_parameter/value = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qayus"]
+texture = ExtResource("2_5igwl")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fxffe"]
+texture = ExtResource("3_cwx77")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_770rw"]
+texture = ExtResource("4_cxgba")
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_kjfds")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_213vl")
+offset_right = 864.0
+offset_bottom = 936.0
+
+[node name="RestartButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_qayus")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fxffe")
+theme_override_styles/normal = SubResource("StyleBoxTexture_770rw")
+
+[node name="ScoreLabelFinal" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -131.0
+offset_right = 119.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.580392, 0.992157, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.054902, 0.027451, 0.105882, 1)
+theme_override_constants/shadow_outline_size = 15
+theme_override_font_sizes/font_size = 50
+text = "Your SCORE: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]

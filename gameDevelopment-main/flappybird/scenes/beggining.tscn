@@ -1,0 +1,87 @@
+[gd_scene load_steps=16 format=3 uid="uid://cbbuonuckacxq"]
+
+[ext_resource type="Script" path="res://scenes/beggining.gd" id="1_1mtmk"]
+[ext_resource type="Shader" path="res://scenes/game_over.gdshader" id="1_vh8uc"]
+[ext_resource type="Texture2D" uid="uid://cfdp76kduqd2w" path="res://assets/Buttons/exit/exit2.png" id="2_7b1pe"]
+[ext_resource type="Texture2D" uid="uid://cm5x0cxj21452" path="res://assets/Buttons/exit/exit3.png" id="3_v8u3e"]
+[ext_resource type="Texture2D" uid="uid://c3x70h7luv52t" path="res://assets/Buttons/exit/exit1.png" id="4_0mtcd"]
+[ext_resource type="Texture2D" uid="uid://datnqchf5ojag" path="res://assets/Buttons/play/play-button3 .png" id="5_3lw0f"]
+[ext_resource type="Texture2D" uid="uid://wp1e2vicow1p" path="res://assets/Buttons/play/play-button2.png" id="6_ee1ln"]
+[ext_resource type="Texture2D" uid="uid://c11bpktvo11ke" path="res://assets/Buttons/play/play-button1.png" id="7_2co28"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8x3t6"]
+shader = ExtResource("1_vh8uc")
+shader_parameter/value = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ny1ws"]
+texture = ExtResource("2_7b1pe")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n0xw8"]
+texture = ExtResource("3_v8u3e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yt28y"]
+texture = ExtResource("4_0mtcd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xj0qj"]
+texture = ExtResource("5_3lw0f")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bvgkg"]
+texture = ExtResource("6_ee1ln")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wvwr0"]
+texture = ExtResource("7_2co28")
+
+[node name="Beggining" type="CanvasLayer"]
+script = ExtResource("1_1mtmk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_8x3t6")
+offset_right = 864.0
+offset_bottom = 936.0
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.5
+offset_top = -268.0
+offset_right = 290.5
+offset_bottom = -165.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.556863, 0, 1)
+theme_override_constants/shadow_outline_size = 30
+theme_override_font_sizes/font_size = 75
+text = "Falling Red Bird "
+
+[node name="Exit" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -75.0
+offset_bottom = 75.0
+grow_horizontal = 0
+theme_override_styles/hover = SubResource("StyleBoxTexture_ny1ws")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_n0xw8")
+theme_override_styles/normal = SubResource("StyleBoxTexture_yt28y")
+
+[node name="Play" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_xj0qj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bvgkg")
+theme_override_styles/normal = SubResource("StyleBoxTexture_wvwr0")
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
